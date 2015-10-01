@@ -1,0 +1,6 @@
+# don't include third-party dependencies.
+node_modules
+web
+web-div
+lib
+.DS_Store

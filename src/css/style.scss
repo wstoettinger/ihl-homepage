@@ -1,0 +1,794 @@
+@charset "UTF-8";
+
+$gray-darker:               #212225 !default;
+$gray-dark:                 #37383b !default;
+$gray:                      #555558 !default;
+$gray-li:                   #696a6d !default;
+$gray-light:                #818286 !default;
+$gray-lighter:              #e9ebef !default;
+$gray-lightest:             #fbfcff !default;
+
+$color-primary:             #4086d3 !default;
+
+$text-color:                $gray-dark !default; 
+$text-color-headings:       $gray-li !default;
+
+$link-color:                 $color-primary !default;
+$link-hover-color:           darken($link-color, 15%) !default;
+$link-hover-decoration:      none !default;
+
+$nav-col:               #fff !default;
+$nav-bg:                $color-primary !default;
+$nav-border:            $color-primary !default;
+$nav-hover-bg:          darken($color-primary, 15%) !default;
+$nav-active-bg:         lighten($color-primary, 30%) !default;
+$nav-arrow:             rgba(255, 255, 255, .6);
+$nav-divider:           $gray-dark;
+
+$footer-col:            $gray-lighter !default;
+$footer-a:              #4086d3 !default; //#5591dc
+$footer-a-hover:        lighten($footer-a, 10%) !default;
+$footer-bg:             $gray !default;
+
+$footer-button-col:       $footer-col;
+$footer-button-bg:        darken($color-primary, 10%) !default;
+$footer-button-hover-bg:  darken($color-primary, 15%) !default;
+
+$font-weight:           300;
+$font-weight-a:         500;
+$font-weight-headings:  500;
+$font-weight-bold:      700;
+
+// natural nav breakpoint:
+$break-phone: 48rem;
+$break-nav: 920px;
+
+$nav-height: 80px;
+$nav-height-phone: 40px;
+$nav-image-height-phone: 40px;
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  font-family: "Raleway", sans-serif;
+  font-weight: $font-weight;
+  color: $text-color;
+  background-color: $gray-lightest;
+  display: table;
+  table-layout: fixed;
+}
+
+header,
+main,
+footer {
+  display: table-row;
+}
+
+main {
+  height: 100%;
+  background: #69a0dd;
+  background-image: url('../img/bg/bg_houses-1600w.png'), -webkit-gradient(linear, left top, left bottom, from(#69a0dd), to(#4086d3)); /* Saf4+, Chrome */
+  background-image: url('../img/bg/bg_houses-1600w.png'), -webkit-linear-gradient(top, #69a0dd, #4086d3); /* Chrome 10+, Saf5.1+ */
+  background-image: url('../img/bg/bg_houses-1600w.png'),    -moz-linear-gradient(top, #69a0dd, #4086d3); /* FF3.6+ */
+  background-image: url('../img/bg/bg_houses-1600w.png'),      -o-linear-gradient(top, #69a0dd, #4086d3); /* Opera 11.10+ */
+  background-image: url('../img/bg/bg_houses-1600w.png'),         linear-gradient(#69a0dd, #4086d3); /* W3C */
+
+  background-position-y: bottom;
+  background-size: 50%;
+  background-repeat-y: no-repeat;
+  background-color: #69a0dd;
+}
+
+main .container:first-child {
+  margin-top: $nav-height;
+  @media screen and (max-width: $break-phone) {
+    margin-top: $nav-height-phone;
+  }
+}
+
+main .content {
+  padding-bottom: 160px;
+}
+
+footer .content {
+  font-size: 10pt;
+  min-height: 45px;
+  background-color: $footer-bg;
+  color: $footer-col;
+  padding-top: 18px;
+  padding-bottom: 10px;
+}
+
+footer a {
+  color: $footer-a;
+  &:hover, 
+  &:active {
+    color: $footer-a-hover
+  }
+}
+
+footer .email {
+  width: 100%;
+  color: $text-color;
+  background-color: $gray-lighter;
+  border: 2px solid $gray-light;
+  padding: 2px 5px;  
+}
+
+footer .btn {
+  padding: .15rem .5rem;
+  font-size: .84rem;
+  line-height: 1.5;
+  border-radius: 0;
+
+  color: $footer-button-col;
+  background-color: $footer-button-bg;
+  border-color: $footer-button-bg;
+  
+  &:hover {
+    background-color: $footer-button-hover-bg;
+    border-color: $footer-button-hover-bg;
+  }
+}
+
+footer .btn-subscribe {
+  float: right;
+}
+
+.footer-card {
+  margin: .8rem .5rem 1rem;
+}
+
+iframe {
+  width: 100%;
+}
+
+.card iframe {
+  margin-bottom: -6px;
+}
+
+.hidden {
+  display: none;
+}
+
+.left {
+  float: left !important;
+}
+
+.center {
+  text-align: center;
+  float: none !important;
+}
+
+.right {
+  float: right !important;
+}
+
+.container,
+.container div,
+.mynav {
+  &:before {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    content: " ";
+    display: table;
+    clear: both;
+  }
+}
+
+.no-margin {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+
+a {
+  color: $link-color;
+  font-weight: $font-weight-a;
+  text-transform: none;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
+
+  &.nostyle {
+    color: $text-color;
+
+    * {
+      color: $text-color;
+    }
+
+    &:hover,
+    &:focus {
+      color: $text-color;
+      text-decoration: $link-hover-decoration;
+    }
+  }
+}
+
+p {
+  text-align: justify;
+  margin-bottom: .8rem;
+}
+
+ul,
+ol {
+  padding-left: 1.5em;
+  padding-right: .5em;
+  margin-bottom: .5rem;
+}
+
+li {
+  text-align: justify;
+}
+
+ul.dash {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 1em;
+}
+
+ul.dash > li:before {
+  display: inline-block;
+  content: "-";
+  width: 1em;
+  margin-left: -1em;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: $font-weight-headings;
+  color: $text-color-headings;
+}
+
+h3 {
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+}
+
+h4 {
+  font-size: 1.4rem;
+}
+
+th,
+td {
+  vertical-align: top;
+}
+
+////////////
+// NAV
+///////////
+
+.nav-bar {
+  display: block; 
+  transition: top 0.2s ease-in-out;
+  position: fixed;
+  z-index: 100;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: $nav-height;
+
+  color: $nav-col;
+  background-color: $nav-bg;
+
+  // breaking menu at natural breakpoint (even when screen is still bigger than phone)
+  @media screen and (max-width:$break-nav) {
+    height: $nav-height-phone;
+  }
+}
+
+.nav-up {
+  top: -80px;
+}
+
+.mynav {
+  max-width: 60.25rem;
+  margin: 0 auto;
+  padding: 0;
+
+  @media screen and (min-width:75rem) {
+    max-width: 72.5rem;
+  }
+
+  > div,
+  > div > ul,
+  > div > ul > li,
+  > div > ul > li > a {
+    line-height: $nav-height;
+
+    @media screen and (max-width:$break-phone) {
+      line-height: $nav-height-phone;
+    }
+  }
+
+  .logo {
+    background-color: transparent;
+
+    @media screen and (max-width:$break-phone) {
+      width: 100%;
+    }
+
+    // center logo before the menu breaks
+    @media screen and (min-width:$break-phone+1) and (max-width:$break-nav) {
+      text-align: center;
+      float: none !important;
+    }
+  }
+
+  .menu-toggle {
+    // only show menu toggle button on smartphones
+    display: none;
+
+    @media screen and (max-width:$break-phone) {
+      display: initial;
+    }
+
+    a {
+      padding: 0 30px 0 12px;
+      position: relative;
+
+      &:after {
+        content: "";
+        display: block;
+        height: 0;
+        position: absolute;
+        margin-top: -8px;
+        top: 50%;
+        box-shadow: 0 0 0 1px $nav-col, 0 7px 0 1px $nav-col, 0 14px 0 1px $nav-col;
+        width: 16px;
+      }
+    }
+  }
+
+  .menu {
+    // initially hide menu on smartphones
+    @media screen and (max-width:$break-phone) {
+      width: 100%;
+      display: none;
+
+      // only show when expanded
+      &.expanded,
+      ul.expanded {
+        display: block;
+      }
+    }
+
+    // TODO: change this
+    // center menu before it breaks
+    @media screen and (min-width:$break-phone+1) and (max-width:$break-nav) {
+      text-align: center;
+      float: none !important;
+    }
+  }
+
+  ul,
+  li {
+    @media screen and (max-width:$break-phone) {
+      width: 100%;
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
+    background-color: $nav-bg;
+
+    &.dropdown {
+      min-width: 100%;
+      display: none;
+
+      // dropdown overlay only on non-smartphones
+      @media screen and (min-width:$break-phone+1) {
+        position: absolute !important;
+        z-index: 110;
+        //height: 0px;
+        top: $nav-height;
+        left: 0;
+        //border: 1px solid $nav-border;
+      }
+
+      @media screen and (max-width:$break-phone) {
+        border-bottom: 2px solid $nav-border;
+      }
+    }
+
+    // this link is only displayed on devices where client_touch.css is loaded
+    .parent-link {
+      display: none;
+    }
+  }
+
+  li {
+    background-color: $nav-bg;
+    float: left;
+
+    &.active {
+      background-color: $nav-active-bg;
+    }
+
+    &:not(.active):hover {
+      background-color: $nav-hover-bg;
+    }
+
+    a {
+      width: 100%;
+      float: left;
+      padding-left: 15px;
+      padding-right: 15px;
+      color: $nav-col !important;
+      font-weight: 400;
+      font-size: 14px;
+
+      &:hover {
+        color: $nav-col !important;
+        text-decoration: none;
+      }
+    }
+
+  }
+
+  li.has-dropdown {
+    position: relative;
+
+    > a {
+      padding-right: 35px !important;
+
+      // the dropdown toggle is only shown on devices where client_touch.css is loaded
+      &.dropdown-toggle {
+        display: none;
+      }
+
+      // code for dropdown arrow
+      &:after {
+        position: absolute;
+        right: 0;
+        margin-right: 15px;
+        border: inset 5px;
+        content: "";
+        display: block;
+        border-top-style: solid;
+
+        @media screen and (min-width:$break-phone+1) {
+          border-color: $nav-arrow transparent transparent transparent;
+          top: 50%;
+          margin-top: -2.5px;
+        }
+
+        @media screen and (max-width:$break-phone) {
+          border-color: transparent transparent transparent $nav-arrow;
+          margin-top: -34px;
+        }
+
+      }
+
+      // switch arrow direction on expanded menus on mobile
+      &.expanded:after {
+        @media screen and (max-width:$break-phone) {
+          border-color: $nav-arrow transparent transparent transparent;
+        }
+
+      }
+
+    }
+
+    // list elements within a dropdown
+    li {
+      width: 100%;
+      line-height: 45px;
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+
+    // show menu item hierarchy on mobiles by indentation
+    @media screen and (max-width:$break-phone) {
+      li a {
+        padding-left: 30px;
+      }
+
+      li li a {
+        padding-left: 45px;
+      }
+
+    }
+
+  }
+
+  // third level menu (dropdown) has children on the right
+  li li.has-dropdown {
+    > a:after {
+      // arrow to the right
+      border-color: transparent transparent transparent $nav-arrow;
+    }
+
+    ul.dropdown {
+      top: 0px;
+      left: 100%;
+    }
+
+  }
+
+  // top level divider has right border
+  li.divider {
+    border-right: 1px solid $nav-divider;
+
+    @media screen and (max-width:$break-phone) {
+      border-bottom: 1px solid $nav-divider;
+    }
+
+  }
+
+  // sub level divider has bottom border
+  li li.divider {
+    border-right: 0;
+    border-bottom: 1px solid $nav-divider;
+  }
+
+  li.divider:first-child,
+  li.divider:last-child {
+    display: none;
+  }
+
+  img {
+    max-height: $nav-height;
+    padding: 10px;
+    width: auto;
+    display: block;
+
+    // adjust logo size for mobile devices
+    @media screen and (max-width:$break-phone) {
+      max-height: $nav-image-height-phone;
+      margin-left: 5px;
+    }
+
+  }
+
+}
+
+////////////////////////////
+// News Feed 
+////////////////////////////
+.article {
+  p {
+    margin-bottom: .2rem;
+    margin-left: .2rem;
+  }
+
+  .image {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .content {
+    padding: 1rem 1.25rem .5rem 1.25rem;
+  }
+
+  .title {
+    margin-top: 0;
+    margin-bottom: .5rem;
+  }
+
+  .date {
+    font-size: 80%;
+    color: #818a91;
+    margin-top: -.4rem;
+    margin-bottom: .4rem;
+  }
+
+  .read-on {
+    margin-top: .4rem;
+    size: 80%;
+  }
+
+}
+
+///////////////////////////
+// bootstrap adaptations 
+///////////////////////////
+
+.card {
+  margin-bottom: 1.2rem;
+  background-color: #fff;
+  box-shadow: none;
+  border: 1px solid #e8e8e8;
+  border-radius: 0;
+  //rgba(0, 0, 0, 0.1) 0px 0px 5px 0px;
+}
+
+.card-block {
+  padding-top: 1rem;
+  padding-bottom: .8rem;
+}
+
+.card-title {
+  margin-bottom: .5rem;
+}
+
+.modal-backdrop.in {
+  opacity: .75;
+}
+
+.jumbotron {
+  padding: 2rem 1rem;
+  margin-bottom: 1.2rem;
+  background-color: lighten($gray-lighter, 2%);
+  border-radius: 0;
+  border-top: 1px solid darken($gray-lighter, 3%);
+  border-bottom: 1px solid darken($gray-lighter, 3%);
+
+  @media screen and (min-width:34em) {
+    padding: 3rem 2rem;
+  }
+
+  .title {
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-weight: $font-weight;
+  }
+
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+}
+
+.blockquote {
+  padding: .1rem .5rem .1rem .5rem;
+  font-size: 1.25rem;
+  border-left: .2rem solid #ddd;
+}
+
+small,
+.small {
+  font-weight: 300;
+  font-size: 80%;
+}
+
+// custon classes:
+.smaller {
+  font-weight: 300;
+  font-size: 70%;
+}
+
+.hidden-sm {
+  @media screen and (min-width:34rem) and (max-width:48rem) {
+    display: none;
+  }
+}
+
+// BOOTSTRAP END
+
+///////////////////
+// Google Recaptcha 
+////////////////////
+
+// size adaptations:
+.g-recaptcha {
+  @media screen and (min-width:62rem) and (max-width:75rem) {
+    transform: scale(0.77);
+    transform-origin: 0 0;
+  }
+
+}
+
+/////////////////////
+// Layzload
+////////////////////
+
+// lazybox class to ensure the height of the components before the actual images are loaded
+.lazybox {
+  position: relative;
+
+  &:before {
+    content: " ";
+    display: table;
+    padding-top: 66%;
+  }
+
+  picture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+}
+
+.home-slider .lazybox {
+  &:before {
+    padding-top: 27.72%;
+
+    @media screen and (min-width:62rem) {
+      padding-top: 27.72%;
+    }
+
+    @media screen and (min-width:34rem) and (max-width:62rem) {
+      padding-top: 39.86%;
+    }
+
+    @media screen and (max-width:34rem) {
+      padding-top: 56.1%;
+    }
+
+  }
+
+}
+
+.slide-small .lazybox {
+  @media screen and (min-width:75rem) {
+    height: 135px;
+  }
+
+  @media screen and (min-width:62rem) and (max-width:75rem) {
+    height: 109px;
+  }
+
+  @media screen and (min-width:48rem) and (max-width:62rem) {
+    height: 77px;
+  }
+
+  @media screen and (min-width:34rem) and (max-width:48rem) {
+    height: 54px;
+  }
+
+  @media screen and (max-width:34rem) {
+    height: 20px;
+  }
+
+  &:before {
+    //padding-top: 12%;
+  }
+
+}
+
+.lazybox.review {
+  &:before {
+    padding-top: 100%;
+  }
+
+}
+
+
+///////////////////////
+// Parallax 
+//////////////////////
+
+.parallax-window,
+.parallax-slider {
+  height: 40vh;
+}
+
+.owl-carouselx img {
+  visibility: hidden;
+}
+
+.owl-carouselx img:fist-child {
+  visibility: visible;
+}
