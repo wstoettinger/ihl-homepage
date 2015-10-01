@@ -41,11 +41,11 @@ $font-weight-bold:      700;
 
 // natural nav breakpoint:
 $break-phone: 48rem;
-$break-nav: 920px;
+$break-nav: 48rem;
 
 $nav-height: 80px;
-$nav-height-phone: 40px;
-$nav-image-height-phone: 40px;
+$nav-height-phone: 60px;
+$nav-image-height-phone: 60px;
 
 html {
   height: 100%;
@@ -552,7 +552,7 @@ td {
     max-height: $nav-height;
     padding: 10px;
     width: auto;
-    display: block;
+    display: inline;
 
     // adjust logo size for mobile devices
     @media screen and (max-width:$break-phone) {
