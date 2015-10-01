@@ -21,7 +21,7 @@ ob_start();
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# ichhelfelaufend: http://ogp.me/ns/fb/ichhelfelaufend#">
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport"    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport"    content="width=device-width, initial-scale=0.7, maximum-scale=0.7, user-scalable=no" />
   <meta name="description" content="<?php echo $page->description ?>" />
   <meta name="keywords"    content="Charity, Charity Run, Spendenlauf, Ich Helfe Laufend, Wien" />
   <title><?php echo $page->title ?></title>
