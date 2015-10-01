@@ -49,6 +49,7 @@ gulp.task('src', ['clean-div'], function () {
   return gulp.src([
     './src/**/*',
     '!' + './src/**/*.css',
+    '!' + './src/**/*.scss',
     '!' + './src/**/*.js',
     '!' + './src/img/**/*',
     ], { 
