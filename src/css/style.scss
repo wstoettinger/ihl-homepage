@@ -77,10 +77,10 @@ main {
   background-image: url('../img/bg/bg_houses-1600w.png'),      -o-linear-gradient(top, #69a0dd, #4086d3); /* Opera 11.10+ */
   background-image: url('../img/bg/bg_houses-1600w.png'),         linear-gradient(#69a0dd, #4086d3); /* W3C */
 
-  background-position-y: bottom;
-  background-size: 50%;
-  background-repeat-y: no-repeat;
+  background-position: 50% bottom;
+  background-repeat: repeat-x;
   background-color: #69a0dd;
+  
 }
 
 main .container:first-child {
@@ -630,10 +630,10 @@ td {
 .jumbotron {
   padding: 2rem 1rem;
   margin-bottom: 1.2rem;
-  background-color: lighten($gray-lighter, 2%);
+  background-color: #fff;
   border-radius: 0;
-  border-top: 1px solid darken($gray-lighter, 3%);
-  border-bottom: 1px solid darken($gray-lighter, 3%);
+  border-top: 1px solid $gray-lighter;
+  border-bottom: 1px solid $gray-lighter;
 
   @media screen and (min-width:34em) {
     padding: 3rem 2rem;
