@@ -1,7 +1,7 @@
 'use strict';
 
 window.initialize = function () {
-  
+
   window.loadScript();
   window.initMenu();
 
@@ -17,6 +17,16 @@ window.initialize = function () {
   });
   
   $('.parallax-window').parallax({naturalWidth: 2048, naturalHeight: 1367});
+
+  $(window).scroll(function() {
+    var height = $(window).scrollTop();
+
+    var info = $('#got-questions:hidden');
+
+    if(info.length > 0 && height > $( document ).height() / 2) {
+      info.show().animate({ opacity: "1", bottom: "-=30" }, { duration: 500, easing: 'easeOutBounce'});
+    }
+  });
 
   //window.setTimeout(function() {
 //    $(window).trigger('resize.px.parallax');

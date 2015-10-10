@@ -2,7 +2,7 @@
 define('IN_INDEX', true);
 setlocale(LC_ALL, 'de_AT', 'german-austrian', 'at', 'aut', 'de_DE@euro', 'de_DE', 'de', 'ge');
 
-$ROOT_PATH = str_replace("/index.php","",$_SERVER["PHP_SELF"]);
+$DOC_BASE = str_replace("/index.php","", $_SERVER['SCRIPT_NAME']);
 
 include('page.php');
 

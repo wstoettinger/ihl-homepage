@@ -81,7 +81,7 @@ gulp.task('img-temp-clean', function (callback) {
 
 function imgCopy() {
   return gulp.src([
-    './src/img/**/*'
+    './src/img/**/*.{jpg,png}'
     ], { 
       dot: true 
     })
@@ -108,61 +108,48 @@ gulp.task('img-strip', ['img-copy'], function (callback) {
   return imgStrip();
 });
 
+function resize(glob, base, fallbackSize, sizes) {
 
-function imgResize() {
-  
-  gulp.src(['./img-temp/**/*.{jpg,png}'], { dot: true })
-  .pipe(imageResize({ imageMagick: true, width : 200 }))
-  .pipe(rename(function (path) { path.basename += "-200w"; }))
-  .pipe(gulp.dest('./web/img/'))
-  .pipe(gulp.dest('./web-div/img/'));
-  
-  gulp.src(['./img-temp/**/*.{jpg,png}'], { dot: true })
-  .pipe(imageResize({ imageMagick: true, width : 400 }))
-  .pipe(rename(function (path) { path.basename += "-400w"; }))
-  .pipe(gulp.dest('./web/img/'))
-  .pipe(gulp.dest('./web-div/img/'));
+  var i;
+  for (i = 0; i < sizes.length; ++i) {    
+    (function (size) {
+      gulp.src(glob, { dot: true })
+      .pipe(imageResize({ imageMagick: true, width : size }))
+      .pipe(rename(function (path) { path.basename += "-" + size.toString() + "w"; }))
+      .pipe(gulp.dest('./web/img/' + base))
+      .pipe(gulp.dest('./web-div/img/' + base));
+    }(sizes[i]));
+  }
 
-  gulp.src(['./img-temp/**/*.{jpg,png}'], { dot: true })
-  .pipe(imageResize({ imageMagick: true, width : 800 }))
-  .pipe(rename(function (path) { path.basename += "-800w"; }))
-  .pipe(gulp.dest('./web/img/'))
-  .pipe(gulp.dest('./web-div/img/'));
-
-  // this is the standard image size for fallback images
-  gulp.src(['./img-temp/**/*.{jpg,png}'], { dot: true })
-  .pipe(imageResize({ imageMagick: true, width : 1200 }))
-  .pipe(gulp.dest('./web/img/'))
-  .pipe(gulp.dest('./web-div/img/'))
-  .pipe(rename(function (path) { path.basename += "-1200w"; }))
-  .pipe(gulp.dest('./web/img/'))
-  .pipe(gulp.dest('./web-div/img/'));
-
-  gulp.src(['./img-temp/**/*.{jpg,png}'], { dot: true })
-  .pipe(imageResize({ imageMagick: true, width : 1600 }))
-  .pipe(rename(function (path) { path.basename += "-1600w"; }))
-  .pipe(gulp.dest('./web/img/'))
-  .pipe(gulp.dest('./web-div/img/'));
-
-  gulp.src(['./img-temp/**/*.jpg'], { dot: true })
-  .pipe(imageResize({ imageMagick: true, width : 2000 }))
-  .pipe(rename(function (path) { path.basename += "-2000w"; }))
-  .pipe(gulp.dest('./web/img/'))
-  .pipe(gulp.dest('./web-div/img/'));
-
-  gulp.src(['./img-temp/**/*.jpg'], { dot: true })
-  .pipe(imageResize({ imageMagick: true, width : 2400 }))
-  .pipe(rename(function (path) { path.basename += "-2400w"; }))
-  .pipe(gulp.dest('./web/img/'))
-  .pipe(gulp.dest('./web-div/img/'));
-
-  return gulp.src(['./img-temp/**/*.jpg'], { dot: true })
-  .pipe(imageResize({ imageMagick: true, width : 2800 }))
-  .pipe(rename(function (path) { path.basename += "-2800w"; }))
-  .pipe(gulp.dest('./web/img/'))
-  .pipe(gulp.dest('./web-div/img/'));
+  return  gulp.src(glob, { dot: true })
+  .pipe(imageResize({ imageMagick: true, width : fallbackSize }))
+  .pipe(gulp.dest('./web/img/' + base))
+  .pipe(gulp.dest('./web-div/img/' + base));
 }
 
+function imgResize() {
+
+  var szFull = [640, 960, 1080, 1280, 1366, 1600, 1920, 2880];
+  var szStd  = [640, 960, 1088, 1165, 1440, 1600, 1920, 2330];
+  var szFeed = [400, 482, 600, 640, 960, 1088, 1600];
+  var szLogo = [320, 440, 640, 660];
+
+  resize('./img-temp/full/**/*.jpg', 'full/', 1280, szFull);
+  resize('./img-temp/std/**/*.jpg', 'std/',  1440, szStd);
+  resize('./img-temp/feed/*/*/*.jpg', 'feed/', 1440, szStd);
+  resize('./img-temp/feed/*/*.jpg', 'feed/',  640,  szFeed);
+  resize('./img-temp/logo/**.png', 'logo/',  320,  szLogo);
+
+  // take svg files as they are
+  return gulp.src([
+    './src/**/*.svg'
+    ], { 
+      dot: true 
+    })
+  .pipe(changed('./web/'))
+  .pipe(gulp.dest('./web/'))
+  .pipe(gulp.dest('./web-div/'));
+}
 
 // resize images currently in the img-temp
 gulp.task('img-resize', ['img-strip'], function () {

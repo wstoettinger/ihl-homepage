@@ -2,7 +2,6 @@
 
 global $page;
 
-$path = explode("/", $page->pageFilePath);
 if (!isset($page->title))
   $page->title = "Ich Helfe Laufend Spendenlauf";
 if (!isset($page->ogImageUrl))
@@ -12,6 +11,11 @@ if (!isset($page->description))
 
 if (!isset($page->canonical))
   $page->canonical = $page->url;
+
+$nav = [
+['name' => 'home', 'text' => 'Home', 'link' => '/'],
+['name' => 'aktuelles', 'text' => 'Aktuelles', 'link' => '/aktuelles']
+];
 
 ob_start();
 
@@ -79,28 +83,16 @@ ob_start();
     <div class="nav-bar">
       <nav class="mynav">
         <div class="logo left"> 
-          <a href="/"><img src="/img/logo/Logo-text-runner-400w.png" alt="Ich Helfe Laufend Logo" title="Ich Helfe Laufend"></a>
+          <a href="/"><?php echo $page->build_picture('/img/logo/Logo-text-runner.png', 'logo', '', 'logo-picture', 'Ich Helfe Laufend Logo', 'Ich Helfe Laufend Homepage'); ?></a>
           <span class="menu-toggle right"><a href="#" alt="Menü"></a></span>
         </div>
         <div class="menu right">
-          <ul>
-            <li class="<?php echo (count($path) == 0 || $path[0] == '' ||$path[0] == 'home' ? 'active' : ''); ?>"><a href="/"> Save The Date</a></li>
-            <?php /*<li class="has-dropdown <?php echo ($path[0] == 'lauf' ? 'active expanded' : ''); ?>" >
-              <a href="/lauf"> Rund um den Lauf</a>
-              <a href="#" class="dropdown-toggle <?php echo ($path[0] == 'lauf' ? 'expanded' : ''); ?>"> Rund um den Lauf</a>
-              <ul class="dropdown <?php echo ($path[0] == 'lauf' ? 'expanded' : ''); ?>">
-                <li class="<?php echo $path[0] == 'lauf' && count($path) == 1 ? "active" : ""; ?>"><a href="/lauf"> Informationen</a></li>
-                <li class="<?php echo $path[0] == 'lauf' && $path[1] == 'wertungen' ? "active" : ""; ?>"><a href="/lauf/wertungen"> Wertungen</a></li>
-                <li class="<?php echo $path[0] == 'lauf' && $path[1] == 'startnummern' ? "active" : ""; ?>"><a href="/lauf/startnummern"> Startnummernabholung</a></li>
-              </ul>
-            </li>
-            <li class="<?php echo ($path[0] == 'anmeldung' ? 'active' : ''); ?>"><a href="/anmeldung"> Anmeldung</a></li> */ ?>
-          </ul>
-        </div>
-      </nav>
-    </div>
-  </header>
-  <main>
+         <?php echo $page->buildNav($nav);?>
+       </div>
+     </nav>
+   </div>
+ </header>
+ <main>
     <!--[if lt IE 10]>
     <div class="container"><div class="client-warning alert alert-danger">
       <p class="browsehapp">Du verwendest einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisiere deinen Browser</a> um eine ideale User Experience zu erfahren.</p>
@@ -115,8 +107,24 @@ ob_start();
         echo $page->content;
       ?>
     </div>
+    <?php      
+    if (isset($page->contactForm)) {
+      ?>
+      <div class="contact-form-container">
+        <div class="arrow_box hidden" id ="got-questions">
+          <h3>Noch Fragen?</h3>
+        </div>
+        <div class="contact-form">
+          <a class="contact-form-button" href="#contact-form-collapse" data-toggle="collapse" aria-expanded="false" aria-controls="contact-form-collapse"><i class="fa fa-comment-o"></i> Kontakt</a>
+          <div class="collapse" id="contact-form-collapse">
+            <?php echo $page->contactForm; ?>
+          </div>
+        </div>
+      </div>
+      <?php
+    }
+    ?>
   </main>
-  <?php /*
   <footer>
     <div class="content">
       <div class="container">
@@ -190,12 +198,16 @@ ob_start();
           </div>
         </div>
       </div>
-    </footer> */ ?>
+    </footer>
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.1/bootstrap.min.js"></script>
+    <script src="/js/jquery.detect_swipe.js"></script>
+    <script src="/js/jquery.easing.1.3.js"></script>
     <script src="/js/owl.carousel.js"></script>
     <script src="/js/parallax.min.js"></script>
+    <script src="/js/featherlight.min.js"></script>
+    <script src="/js/featherlight.gallery.min.js"></script>
     <script src="/js/main.js"></script>
     <?php if (isset($page->injectScripts)) echo $page->injectScripts; ?>
   </body>
@@ -204,6 +216,8 @@ ob_start();
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Raleway:300,500,700' />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/featherlight.css" />
+  <link rel="stylesheet" href="/css/featherlight.gallery.css" />
   <link rel="stylesheet" href="/css/owl.carousel.css" />
   <?php if (isset($page->injectCSS)) echo $page->injectCSS; ?>
   <link rel="stylesheet" href="/css/style.css" />

@@ -43,7 +43,7 @@ handlers:
   static_dir: js
   
 - url: /.*
-  script: index.php
+  script: app-engine-index.php
   
   
 # Third party libraries that are included in the App Engine SDK must be listed
