@@ -22,12 +22,14 @@ $faq = [
 $build_faq = function ($section) use ($faq) {
   $s = $faq[$section];
   $i = 0;
+  echo '<div class="faq-section">';
   foreach ($s as $e) {
     $id = 'a-' . $section . '-' . $i;
-    echo '<h4><a class="nostyle" href="#' . $id . '" data-toggle="collapse" aria-expanded="false" aria-controls="' . $id . '">' . $e['question'] . '</a></h4>' .
-    '<p class="collapse" id="' . $id . '">' .  $e['answer'] . '</p>';
+    echo '<div class="faq"><div class="faq-q"><h4><a class="nostyle collapsed" href="#' . $id . '" data-toggle="collapse" aria-expanded="false" aria-controls="' . $id . '">' . $e['question'] . '</a></h4></div>' .
+    '<div class="faq-a"><p class="collapse" id="' . $id . '">' .  $e['answer'] . '</p></div></div>';
     $i++;
   }
+  echo '</div>';
 };
 
 ob_start(); 
@@ -40,7 +42,7 @@ ob_start();
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-md-6">
+    <div class="col-xs-12">
       <div class="card">
         <div class="card-block">
           <h2 class="card-title">Grundlegende Informationen</h2>
@@ -65,4 +67,5 @@ ob_start();
 </div>
 <?php
 $page->content = ob_get_clean();
+
 ?>

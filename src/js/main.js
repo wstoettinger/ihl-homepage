@@ -4,6 +4,7 @@ window.initialize = function () {
 
   window.loadScript();
   window.initMenu();
+  window.checkContactFormResize();
 
 
   $('.owl-carousel').owlCarousel({
@@ -18,19 +19,79 @@ window.initialize = function () {
   
   $('.parallax-window').parallax({naturalWidth: 2048, naturalHeight: 1367});
 
-  $(window).scroll(function() {
-    var height = $(window).scrollTop();
-
-    var info = $('#got-questions:hidden');
-
-    if(info.length > 0 && height > $( document ).height() / 2) {
-      info.show().animate({ opacity: "1", bottom: "-=30" }, { duration: 500, easing: 'easeOutBounce'});
-    }
+  $('#got-questions .close-button, .contact-form .contact-form-button').click(function() {
+    var info = $('#got-questions');
+    info.attr("id","got-questions-dismissed");
+    info.hide();
   });
 
-  //window.setTimeout(function() {
-//    $(window).trigger('resize.px.parallax');
-//  }, 100);
+  $('.page-message-box .close-button').click(function() {
+    $('.page-message-box').animate({ height: '0'}, { duration: 500, complete: function() {
+      $(this).hide();
+    }});
+  });
+
+  $(window).scroll(checkContactFormScroll);
+  $(window).resize(checkContactFormResize);
+
+};
+
+window.checkContactFormResize = function() {
+  var docHeight = $(document).height();
+  var winHeight = $(window).height();
+  var contactMaxBottom = docHeight - $('footer').height();
+
+  var top = $(window).scrollTop();
+  var bottom = top + winHeight;
+
+  var contact = $('.contact-form-container');
+
+  if (bottom > contactMaxBottom) {
+    contact.css({position: 'absolute', bottom: -(contactMaxBottom - winHeight)});
+  }
+  else if (bottom < contactMaxBottom) {
+    contact.css({position: '', bottom: ''}); 
+  }
+}
+
+window.checkContactFormScroll = function() {
+  var docHeight = $(document).height();
+  var winHeight = $(window).height();
+
+  var top = $(window).scrollTop();
+  var bottom = top + winHeight;
+
+  var contact = $('.contact-form-container');
+  var info = $('#got-questions');
+  var contactMaxBottom = docHeight - $('footer').height();
+
+  var down = top > lastScrollTop;
+
+  if(down && docHeight > 1300 && info.is(':hidden') > 0 && top > docHeight / 2) {
+    if (!info.prop("animating")) {
+      info.prop("animating", true);
+      info.show().animate({ opacity: "1", bottom: "-=50" }, { duration: 500, easing: 'easeOutBounce', complete: function() {
+        $(this).prop("animating", false);
+      }});
+    }
+  }
+  else if(!down && info.is(':visible') > 0 && top < docHeight / 2) {
+    if (!info.prop("animating")) {
+      info.prop("animating", true);
+      info.animate({ opacity: "0", bottom: "+=50" }, { duration: 500, easing: 'easeInQuad', complete: function() {
+        var t = $(this);
+        t.hide();
+        t.prop("animating", false);
+      }}); 
+    }
+  }
+
+  if (down && bottom > contactMaxBottom && (contact.css('position') == 'fixed' || contact.css('position') == 'static')) {
+    contact.css({position: 'absolute', bottom: -(contactMaxBottom - winHeight)});
+  }
+  else if (!down && bottom < contactMaxBottom && contact.css('position') == 'absolute') {
+    contact.css({position: '', bottom: ''}); 
+  }
 };
 
 window.loadScript = function () {

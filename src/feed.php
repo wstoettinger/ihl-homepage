@@ -43,7 +43,7 @@ ob_start();
               <a href="<?php echo "/{$page->feed}/{$entry->id}";?>"><?php echo $page->build_picture($entry->image, 'feed'); ?></a>
             </div>
             <?php } ?>
-            <div class="content <?php if ($image) echo 'col-xs-12 col-md-7'; ?>">
+            <div class="content col-xs-12 <?php if ($image) echo 'col-md-7'; ?>">
               <?php
               echo '<h3 class="title"><a href="/' . $page->feed . '/' . $entry->id . '" >' . $entry->title . '</a></h3>';
               if (count($infos) > 0 )

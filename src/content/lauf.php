@@ -19,8 +19,8 @@ ob_start();
   </div>
 </div -->
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-md-8">
+  <div class="ro  w">
+    <div class="col-xs-12 col-md-7 col-lg-8">
       <div class="card">
         <div class="card-block">
           <h2 class="card-title">Laufen ...</h2>
@@ -70,7 +70,7 @@ ob_start();
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-md-4">
+    <div class="col-xs-12 col-md-5 col-lg-4">
       <div class="card">
         <div class="card-block">
           <h2 class="card-title">Der Lauf</h2>
@@ -126,7 +126,7 @@ ob_start();
       </div>
       <div class="card">
         <div class="card-block">
-          <h3 id="Startnummernabholung">Startnummernabholung</h3>
+          <h3 id="Abholung">Startnummernabholung</h3>
           <p>Die Startnummernabholung findes voraussichtlich am <strong>Freitag, den 27. Mai</strong> und am <strong>Samstag den 28. Mai</strong> bei <a href="http://norasports.at" onclick="ga('send', 'event', 'link', 'click', 'Nora');" target="_blank">Nora Pure Sports</a> am <a href="http://goo.gl/maps/m8fMu" onclick="ga('send', 'event', 'link', 'click', 'Nora Adresse');" target="_blank">Hernalser Gürtel 33, 1170 Wien</a> statt. Wenn wir die Sartnummernabholung fixiert haben, bekommst du noch detaillierte Informationen zur genauen Zeit.</p> 
           <p>Bei Abholung der Startnummer bekommst du wie jedes Jahr unser prallgefülltes <a href="/goodiebag">Goodie Bag</a> und einen Einkaufsgutschein von Nora Pure Sports den du sofort in Shop einlösen kannst! Dieses Goodie Bag kannst du au&szlig;erdem verwenden um deine Sachen am Lauftag in der Garderobe abzugeben.</p>
           <p>In Ausnahmefällen kann die Startnummer auch erst am Sonntag Vormittag abgeholt werden (09:00 - 10:00) ein <a href="/goodiebag">Goodie Bag</a> gibt es leider nur bei Abholung am Freitag oder Samstag.</p>

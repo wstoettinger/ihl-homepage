@@ -132,13 +132,15 @@ function imgResize() {
   var szFull = [640, 960, 1080, 1280, 1366, 1600, 1920, 2880];
   var szStd  = [640, 960, 1088, 1165, 1440, 1600, 1920, 2330];
   var szFeed = [400, 482, 600, 640, 960, 1088, 1600];
-  var szLogo = [320, 440, 640, 660];
+  var szNewsGallery = [384, 700, 860, 1292, 1938];
+  var szLogo = [135, 200, 320, 440, 640, 660];
 
   resize('./img-temp/full/**/*.jpg', 'full/', 1280, szFull);
   resize('./img-temp/std/**/*.jpg', 'std/',  1440, szStd);
-  resize('./img-temp/feed/*/*/*.jpg', 'feed/', 1440, szStd);
+  resize('./img-temp/feed/*/*/*.jpg', 'feed/', 2048, szNewsGallery);
   resize('./img-temp/feed/*/*.jpg', 'feed/',  640,  szFeed);
   resize('./img-temp/logo/**.png', 'logo/',  320,  szLogo);
+  resize('./img-temp/misc/**.png', 'misc/',  320,  szLogo);
 
   // take svg files as they are
   return gulp.src([

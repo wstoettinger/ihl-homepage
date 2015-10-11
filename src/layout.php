@@ -12,10 +12,32 @@ if (!isset($page->description))
 if (!isset($page->canonical))
   $page->canonical = $page->url;
 
-$nav = [
-['name' => 'home', 'text' => 'Home', 'link' => '/'],
-['name' => 'aktuelles', 'text' => 'Aktuelles', 'link' => '/aktuelles']
-];
+$nav_projekt = 
+[['name' => 'projekt', 'text' => 'Sozialprojekt', 'link' => '/projekt'], 
+['name' => 'spenden', 'text' => 'Spenden', 'link' => '/spenden'], 
+['name' => 'helfer', 'text' => 'Mithelfen', 'link' => '/helfer'], 
+['name' => 'botschafter', 'text' => 'Botschafter', 'link' => '/botschafter'], 
+['name' => 'partner', 'text' => 'Partner&nbsp;und&nbsp;Sponsoren', 'link' => '/partner']];
+
+$nav_ruek = 
+[['name' => 'ihl2014', 'text' => 'IHL 2014', 'link' => '/archive/ihl2014'],
+['name' => 'ihl2013', 'text' => 'IHL 2013', 'link' => '/archive/ihl2013'],
+['name' => 'ihl2012', 'text' => 'IHL 2012', 'link' => '/archive/ihl2012'],
+['name' => 'ihl2011', 'text' => 'IHL 2011', 'link' => '/archive/ihl2011']];
+
+$nav_lauf = 
+[['name' => 'laufinfo', 'text' => 'Informationen', 'link' => '/lauf'],
+['name' => 'anmeldung', 'text' => 'Anmeldung', 'link' => '/anmeldung'],
+['name' => 'startnummernabholung', 'text' => 'Startnummernabholung', 'link' => '/lauf#Abholung'],
+['name' => 'ergebnisse', 'text' => 'Ergebnisse', 'link' => '/ergebnisse']/*,
+['name' => 'rueckblick', 'text' => 'Rückblick', 'link' => '#', 'sub' => $nav_ruek]*/];
+
+$nav = 
+[['name' => 'lauf', 'text' => 'Lauf', 'link' => '/lauf', 'sub' => $nav_lauf],
+['name' => 'projekt', 'text' => 'Projekt', 'link' => '/projekt', 'sub' => $nav_projekt],
+['name' => 'aktuelles', 'text' => 'Aktuelles', 'link' => '/aktuelles'],
+['name' => 'fotos', 'text' => 'Fotos', 'link' => '/fotos'],
+['name' => 'kontakt', 'text' => 'Kontakt', 'link' => '/kontakt']];
 
 ob_start();
 
@@ -92,7 +114,7 @@ ob_start();
      </nav>
    </div>
  </header>
- <main>
+ <main <?php if ($page->hideBackground) echo 'class="no-bg"'; ?>>
     <!--[if lt IE 10]>
     <div class="container"><div class="client-warning alert alert-danger">
       <p class="browsehapp">Du verwendest einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisiere deinen Browser</a> um eine ideale User Experience zu erfahren.</p>
@@ -102,6 +124,14 @@ ob_start();
       <p>Du musst JavaScript aktivieren, um die Seite verwenden zu können.</p>
     </div></div></noscript>
     <div class="content">
+      <?php if ($page->message) { ?>
+      <div class="page-message-box">
+        <span class="close-button">✕</span>
+        <div class="container">
+          <?php echo $page->message; ?>   
+        </div>
+      </div>
+      <?php } ?>
       <?php 
       if (isset($page->content)) 
         echo $page->content;
@@ -111,12 +141,13 @@ ob_start();
     if (isset($page->contactForm)) {
       ?>
       <div class="contact-form-container">
-        <div class="arrow_box hidden" id ="got-questions">
+        <div class="arrow_box hidden" id="got-questions">
+          <span class="close-button">✕</span>
           <h3>Noch Fragen?</h3>
         </div>
         <div class="contact-form">
-          <a class="contact-form-button" href="#contact-form-collapse" data-toggle="collapse" aria-expanded="false" aria-controls="contact-form-collapse"><i class="fa fa-comment-o"></i> Kontakt</a>
-          <div class="collapse" id="contact-form-collapse">
+          <a class="contact-form-button" href="#contact-form-collapse" data-toggle="collapse" <?php if (isset($_POST["contact-form"]) && !$_POST["success"] == true) echo 'aria-expanded="true"'; else echo 'aria-expanded="false"'; ?> aria-controls="contact-form-collapse"><i class="fa fa-comment-o"></i> Kontakt</a>
+          <div class="collapse<?php if (isset($_POST["contact-form"]) && !$_POST["success"] == true) echo ' in';?>" id="contact-form-collapse">
             <?php echo $page->contactForm; ?>
           </div>
         </div>
@@ -129,74 +160,53 @@ ob_start();
     <div class="content">
       <div class="container">
         <div class="row">
-          <div class="col-xs-12 col-lg-10 col-lg-offset-1">
-            <div class="row">
-              <div class="col-xs-6 col-md-3">
-                <h4>17. Mai 2015</h4>
-                <div class="footer-card">
-                  <p>Augarten Wien<br/>Kastanien-Hauptallee</p>
-                  <p>Beginn: 09:30<br/>Start: 11:00</p>
-                </div>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <h4>Informationen</h4>
-                <div class="footer-card">
-                  <ul class="list-unstyled">
-                    <li><a href="/about">Über uns</a></li>
-                    <li><a href="/project">Sozialprojekt</a></li>
-                    <li><a href="/botschafter">Botschafter</a></li>
-                    <li><a href="/spenden">Spenden</a></li>
-                    <li><a href="/sponsors">Sponsoren</a></li>
-                    <li><a href="/contact">Kontakt</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-xs-6 col-md-3 col-lg-4 col-xl-3">
-                <h4>Newsletter</h4>
-                <div class="footer-card">
-                  <p>Die wichtigsten Infos gibts in unserem Newsletter!</p>
-                  <!-- Begin MailChimp Signup Form -->
-                  <div id="mc_embed_signup">
-                    <form action="//ichhelfelaufend.us3.list-manage.com/subscribe/post?u=8f0f10c06fba1e2f44b85a472&amp;id=91a98df09f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" role="form" target="_blank" >    
-                      <div style="position: absolute; left: -5000px;"><input type="text" name="b_8f0f10c06fba1e2f44b85a472_91a98df09f" tabindex="-1" value="" /></div>
-                      <input type="hidden" value="JA" name="MMERGE11" class="" id="mce-MMERGE11">
+          <div class="col-xs-6 col-lg-2 col-lg-offset-1">
+            <h4>29. Mai 2016</h4>
+            <div class="footer-card">
+              <p>Augarten Wien<br/>Kastanien-Hauptallee</p>
+              <p>Beginn: 09:30<br/>Start: TBA</p>
+            </div>
+          </div>
+          <div class="col-xs-6 col-lg-3">
+            <h4>Links</h4>
+            <div class="footer-card">
+              <ul class="list-unstyled">
+                <li><a href="/faq" title="FAQs">FAQs</a></li>
+                <li><a href="/about" title="Über uns">Über uns</a></li>
+                <li><a href="/impressum" title="Impressum">Impressum</a></li>
+                <li><a href="/datenschutz" title="Datenschutz">Datenschutz</a></li>
+                <li><a href="/teilnahmebedingungen" title="Teilnahmebedingungen">Teilnahmebedingungen</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-6 col-lg-3">
+            <h4>Newsletter</h4>
+            <div class="footer-card">
+              <!-- Begin MailChimp Signup Form -->
+              <div id="mc_embed_signup">
+                <form action="//ichhelfelaufend.us3.list-manage.com/subscribe/post?u=8f0f10c06fba1e2f44b85a472&amp;id=91a98df09f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" role="form" target="_blank" >    
+                  <div style="position: absolute; left: -5000px;"><input type="text" name="b_8f0f10c06fba1e2f44b85a472_91a98df09f" tabindex="-1" value="" /></div>
+                  <input type="hidden" value="JA" name="MMERGE11" class="" id="mce-MMERGE11">
 
-                      <div class="form-group" style="margin-bottom: 5px;">
-                        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email *" style="width: 100%;" required /><br/>
-                      </div>
-                      <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-sm" onclick="ga('send', 'event', 'button', 'click', 'Subscribe Newsletter');" >Anmelden</button>
-                      </div>
-                    </form>
+                  <div class="form-group" style="margin-bottom: 5px;">
+                    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email *" required />
                   </div>
-                  <!--End mc_embed_signup-->
-                </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm" onclick="ga('send', 'event', 'button', 'click', 'Subscribe Newsletter');" >Anmelden</button>
+                  </div>
+                </form>
               </div>
-              <div class="col-xs-6 col-md-3 col-lg-2 col-xl-3">
-                <h4>Rückblick</h4>
-                <div class="footer-card">
-                  <ul class="list-unstyled">
-                    <li><a href="/rueckblick/ihl2014">IHL 2014</a></li>
-                    <li><a href="/rueckblick/ihl2013">IHL 2013</a></li>
-                    <li><a href="/rueckblick/ihl2012">IHL 2012</a></li>
-                    <li><a href="/rueckblick/ihl2011">IHL 2011</a></li>
-                  </ul>
-                </div>
-                <div class="fb-like" data-href="https://www.facebook.com/IchHelfeLaufend" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-              </div>
+              <!--End mc_embed_signup-->
+            </div>
+          </div>
+          <div class="col-xs-6 col-lg-2">
+            <h4>Facebook</h4>
+            <div class="footer-card">
+              <div class="fb-like" data-href="https://www.facebook.com/IchHelfeLaufend" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xs-6 col-md-4">
-            <small>Built with &nbsp;<i class="fa fa-heart" style="color: #a94442;"></i>&nbsp; by <a href="http://www.wolfography.at" target="_blank"><b>wolfography.at</b></a><br/>
-              © 2015 Ich Helfe Laufend Wohltätigkeitsverein</small>
-            </div>
-            <div class="col-xs-6 col-md-8">
-              <span class="right"><a href="/kontakt">Kontakt</a> &nbsp;|&nbsp; <a href="/impressum">Impressum</a> &nbsp;|&nbsp; <a href="/agb">AGB &amp; Datenschutz</a> &nbsp;|&nbsp; <a href="/teilnahmebedingungen">Teilnahmebedingungen</a></span>
-            </div>
-          </div>
-        </div>
+        <span>Built with &nbsp;<i class="fa fa-heart" style="color: #a94442;"></i>&nbsp; by <a href="http://www.wolfography.at" target="_blank"><b>wolfography.at</b></a> © 2015 Ich Helfe Laufend Wohltätigkeitsverein</span>
       </div>
     </footer>
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.min.js"></script>

@@ -7,6 +7,10 @@ $entry = $page->readFeedFile($page->feedArticle);
 $page->title = $entry->title . " - Ich Helfe Laufend Spendenlauf"; 
 $page->entry = $entry;
 
+if(!isset($entry->image)) {
+  $entry->image = $page->getFeedTeaserImage($entry->path, $entry->name);
+}
+
 if (isset($entry->image))
   $page->ogImageUrl = $page->getOgImageUrl($entry->image);
 if (isset($entry->teaser))
@@ -21,6 +25,8 @@ if (isset($entry->tags)) array_push($infos,implode(', ', $entry->tags));
 
 $images = $page->getFeedImages($entry->path, $entry->name);
 
+if(isset($entry->image) && strlen($entry->image) > 0)
+  $image = true;
 
 ob_start(); 
 ?>
@@ -33,21 +39,31 @@ ob_start();
     ?>
   </div>
 </div>
-<div class="container">
+<div class="container article">
   <div class="row">
-    <?php
-    if(isset($entry->image) && strlen($entry->image) > 0)
-      $image = true;
-    ?>
-    <div class="card article">
-      <div class="content">
+    <div class="col-xs-12 <?php if ($image) echo 'col-md-7'; ?>">
+      <div class="card content">
         <?php echo $entry->content; 
         if (count($infos) > 0 )
           echo '<p class="info-bottom">' . implode(" &nbsp;|&nbsp; ", $infos) . '</p>';
         ?>
-        <?php echo $page->buildGalery($images, $entry->imageTitles, $entry->imageSubtitles); ?>
       </div>
     </div>
+    <?php if ($image) { ?>
+    <div class="col-xs-12 col-md-5">
+      <div class="card image">
+        <a href="<?php echo "/{$page->feed}/{$entry->id}";?>"><?php echo $page->build_picture($entry->image, 'feed'); ?></a>
+      </div>
+    </div>
+    <?php } ?>
+    <?php if (count($images) > 0) { ?>
+    <div class="col-xs-12">
+      <div class="card content">
+        <h3>Weitere Fotos</h3>
+        <?php echo $page->buildGalery($images, 'news-gallery', $entry->imageTitles, $entry->imageSubtitles); ?>
+      </div>
+    </div>
+    <?php }?>
   </div>
 </div>
 <?php

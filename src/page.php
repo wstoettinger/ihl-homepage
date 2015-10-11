@@ -78,6 +78,7 @@ class Page {
   'full' => ['640w', '960w', '1080w', '1280w', '1366w', '1600w', '1920w', '2880w'],
   'std'  => ['640w', '960w', '1088w', '1165w', '1440w', '1600w', '1920w', '2330w'],
   'feed' => ['400w', '482w', '600w', '640w', '960w', '1088w', '1600w'],
+  'news-gallery' => ['384w', '700w', '860w', '1292w', '1938w'],
   'logo' => ['320w', '440w', '640w', '660w']
   ];
 
@@ -85,6 +86,7 @@ class Page {
   'full' => ['xl' => '2000px', 'lg' => '1200px', 'md' => '992px', 'sm' => '768px', 'xs' => '544vw'],
   'std'  => ['xl' => '1165px', 'lg' => '960px',  'md' => '720px', 'xs' => '544px'],
   'feed' => ['xl' => '482px',  'lg' => '400px',  'md' => '300px', 'xs' => '544px'],
+  'news-gallery' => ['xl' => '350px',  'lg' => '384px',  'md' => '430px', 'xs' => '646px'],
   'logo' => ['md' => '320px', 'xs' => '220px']
   ];
 
@@ -143,15 +145,20 @@ class Page {
     // container sizes:
     $size_string = implode (', ', $size_arr);
 
-    return '<div class="' . $lazybox . '"><picture><img alt="' . $alt . '" title="' . $title . '" class="lazyload ' . $class . '" sizes="' . $size_string . '" src="' . $src . '" data-src="' . $data_src .  '" data-srcset="' . $data_srcset . '" /></picture></div>'; 
+    if ($type == 'logo') {
+      $src = $data_src;
+    }
+    else
+      $class .= ' lazyload';
+
+    return '<div class="' . $lazybox . '"><picture><img alt="' . $alt . '" title="' . $title . '" class="' . $class . '" sizes="' . $size_string . '" src="' . $src . '" data-src="' . $data_src .  '" data-srcset="' . $data_srcset . '" /></picture></div>'; 
   }
 
-  public function buildGalery($images, $titles = [], $subtitles = [], $columns = array('xs' => 12, 'md' => 6, 'lg' => 4)) {
+  public function buildGalery($images, $type = 'news-gallery', $titles = [], $subtitles = [], $columns = array('xs' => 12, 'md' => 6, 'lg' => 4, 'xl' => 3)) {
     $html = '';
     $itemClass = '';
     foreach($columns as $col => $width) 
       $itemClass .= 'col-' . $col . '-' . $width . ' ';
-
     
     $html = '<div class="gallery" data-featherlight-gallery data-featherlight-filter="a">';
 
@@ -165,7 +172,7 @@ class Page {
       if ($subtitles && array_key_exists($name, $subtitles))
         $subtitle = $subtitles['subtitle'];
 
-      $html .= '<div class="' . $itemClass . '" ><a href="' . $image . '" class="feather">' . $this->build_picture($image, 'gallery', 'picturebox lazybox-100', 'gallery-image', $title ?: '#'. $title ?: '#');
+      $html .= '<div class="' . $itemClass . '" ><a href="' . $image . '" class="feather">' . $this->build_picture($image, $type, 'picturebox lazybox-100', 'gallery-image', $title ?: '#'. $title ?: '#');
 
       if ($title || $subtitle) {
         $html .= '<div class="title">';
@@ -334,12 +341,12 @@ class Page {
 
     $ret .= '<li class="' . $classes . '"><a href="' . $item['link'] . '"> ' . $item['text'] . '</a>';
     if ($item['sub']) {
-      $ret .= '<a href="#" class="dropdown-toggle ' . ($active ? 'expanded' : '' ) . '">';
+      $ret .= '<a href="#" class="dropdown-toggle parent-link' . ($active ? 'expanded' : '' ) . '">'  . $item['text'] . '</a>';
       $ret .= '<ul class="dropdown ' . ($active ? 'expanded' : '' ) . '">';
       foreach ($item['sub'] as $sub) {
         if (isset($path) && count($path) > 1)
           $subPath = array_slice($path, 1);
-        $ret .= buildEntry($subPath, $sub, $active);
+        $ret .= $this->buildEntry($subPath, $sub, $active);
       }
       $ret .= "</ul>";
     }

@@ -19,6 +19,7 @@ $phone = $page->getFormVar('phone');
 $email = $page->getFormVar('email');
 $type = $page->getFormVar('type');
 $message = $page->getFormVar('message');
+$success = $page->getFormVar('success');
 
 if (isset($_POST["submit"])) {
   $from = 'web@ichhelfelaufend.at';
@@ -78,30 +79,30 @@ if (isset($_POST["submit"])) {
       $phone = "";
       $email = "";
       $message = "";
-      $result='<div class="alert alert-success"><strong>Vielen Dank!</strong> Ich werde mich so bald wie möglich, bei dir melden.</div>';
+      $page->message='<div class="alert alert-success"><strong>Vielen Dank!</strong> Wir werden uns so bald wie möglich, bei dir melden.</div>';
+      $success = true;
     } else {
-      $result='<div class="alert alert-danger"><strong>Sorry!</strong> Es gab einen Fehler beim Senden der Nachricht, bitte versuche es später erneut, oder sende mir eine Nachricht an: <a href="mailto:office@ichhelfelaufend.at target="_blank">office@ichhelfelaufend.at</a>.</div>';
+      $page->message='<div class="alert alert-danger"><strong>Sorry!</strong> Es gab einen Fehler beim Senden der Nachricht, bitte versuche es später erneut, oder sende mir eine Nachricht an: <a href="mailto:office@ichhelfelaufend.at target="_blank">office@ichhelfelaufend.at</a>.</div>';
     }
   }
 }
-
 
 ob_start(); 
 ?>
 <form class="form-horizontal" role="form" id="kontakt" method="post" action="<?php echo $page->formAction; ?>">
   <div class="form-group">
     <label class="sr-only control-label" for="name">Name</label>
-    <input type="text" class="form-control <?php echo $errName ? 'form-control-error' : '' ;?>" id="name" name="name" placeholder="Vor- &amp; Nachname *" value="<?php echo htmlspecialchars($_POST['name']); ?>" required>
+    <input type="text" class="form-control <?php echo $errName ? 'form-control-error' : '' ;?>" id="name" name="name" placeholder="Vor- &amp; Nachname *" value="<?php echo htmlspecialchars($name); ?>" required>
     <div class="help-block with-errors"><?php echo $errName ? "<p class='text-danger'>$errName</p>" : "" ;?></div>
   </div>
   <div class="form-group">
     <label class="sr-only control-label" for="phone">Phone</label>
-    <input type="phone" class="form-control <?php echo $errPhone ? 'form-control-error' : '' ;?>" id="phone" name="phone" placeholder="+43 660 1234567 (optional)" value="<?php echo htmlspecialchars($_POST['phone']); ?>">
+    <input type="phone" class="form-control <?php echo $errPhone ? 'form-control-error' : '' ;?>" id="phone" name="phone" placeholder="+43 660 1234567 (optional)" value="<?php echo htmlspecialchars($phone); ?>">
     <div class="help-block with-errors"><?php echo $errPhone ? "<p class='text-danger'>$errPhone</p>" : "" ;?></div>
   </div>
   <div class="form-group">
     <label class="sr-only control-label" for="email">Email</label>
-    <input type="email" class="form-control <?php echo $errEmail ? 'form-control-error' : '' ;?>" id="email" name="email" placeholder="email@domain.com *" value="<?php echo htmlspecialchars($_POST['email']); ?>" required>
+    <input type="email" class="form-control <?php echo $errEmail ? 'form-control-error' : '' ;?>" id="email" name="email" placeholder="email@domain.com *" value="<?php echo htmlspecialchars($email); ?>" required>
     <div class="help-block with-errors"><?php echo $errEmail ? "<p class='text-danger'>$errEmail</p>" : "" ;?></div>
   </div>
   <div class="form-group">
@@ -124,7 +125,7 @@ ob_start();
   </div>
   <div class="form-group">
     <label class="sr-only control-label" for="message">Nachricht</label>
-    <textarea class="form-control <?php echo $errMessage ? 'form-control-error' : '' ;?>" rows="5" id="message" name="message" placeholder="Deine Nachricht. *" required><?php echo htmlspecialchars($_POST['message']);?></textarea>
+    <textarea class="form-control <?php echo $errMessage ? 'form-control-error' : '' ;?>" rows="5" id="message" name="message" placeholder="Deine Nachricht. *" required><?php echo htmlspecialchars($message);?></textarea>
     <div class="help-block with-errors"><?php echo $errMessage ? "<p class='text-danger'>$errMessage</p>" : "" ;?></div>
   </div>
   <div class="form-group">
@@ -132,13 +133,10 @@ ob_start();
     <div class="help-block with-errors"><?php echo $errHuman ? "<p class='text-danger'>$errHuman</p>" : "" ;?></div>
   </div>
   <div class="form-group">
+    <input type="hidden" id="contact-form" name="contact-form" value="contact-form" >
+    <input type="hidden" id="success" name="success" value="<?php echo $success; ?>" >
     <button id="submit" name="submit" type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Anfrage Senden</button>
   </div>
-  <?php if ($result) { ?>
-  <div class="form-group">
-    <?php echo $result; ?>   
-  </div>
-  <?php } ?>
 </form> 
 <?php
 $page->contactForm = ob_get_clean();
