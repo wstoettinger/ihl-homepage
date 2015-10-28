@@ -12,6 +12,12 @@ if (!isset($page->description))
 if (!isset($page->canonical))
   $page->canonical = $page->url;
 
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
+$clientTouch = false;
+
+if (preg_match('/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i', $userAgent)) 
+  $clientTouch = true;
+
 $nav_projekt = 
 [['name' => 'projekt', 'text' => 'Sozialprojekt', 'link' => '/projekt'], 
 ['name' => 'spenden', 'text' => 'Spenden', 'link' => '/spenden'], 
@@ -69,7 +75,7 @@ ob_start();
   <link rel="canonical" href="<?php echo $page->canonical; ?>" />
   <?php if (isset($page->injectHead)) echo $page->injectHead; ?>
   <style>
-    body{display:none; }
+    <?php include('css/embed.css'); ?>
   </style>
   <script src="/js/lazysizes.min.js" async=""></script>
 </head>
@@ -187,7 +193,6 @@ ob_start();
                 <form action="//ichhelfelaufend.us3.list-manage.com/subscribe/post?u=8f0f10c06fba1e2f44b85a472&amp;id=91a98df09f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" role="form" target="_blank" >    
                   <div style="position: absolute; left: -5000px;"><input type="text" name="b_8f0f10c06fba1e2f44b85a472_91a98df09f" tabindex="-1" value="" /></div>
                   <input type="hidden" value="JA" name="MMERGE11" class="" id="mce-MMERGE11">
-
                   <div class="form-group" style="margin-bottom: 5px;">
                     <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email *" required />
                   </div>
@@ -208,29 +213,17 @@ ob_start();
         </div>
         <span>Built with &nbsp;<i class="fa fa-heart" style="color: #a94442;"></i>&nbsp; by <a href="http://www.wolfography.at" target="_blank"><b>wolfography.at</b></a> © 2015 Ich Helfe Laufend Wohltätigkeitsverein</span>
       </div>
-    </footer>
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.1/bootstrap.min.js"></script>
-    <script src="/js/jquery.detect_swipe.js"></script>
-    <script src="/js/jquery.easing.1.3.js"></script>
-    <script src="/js/owl.carousel.js"></script>
-    <script src="/js/parallax.min.js"></script>
-    <script src="/js/featherlight.min.js"></script>
-    <script src="/js/featherlight.gallery.min.js"></script>
-    <script src="/js/main.js"></script>
-    <?php if (isset($page->injectScripts)) echo $page->injectScripts; ?>
-  </body>
-  </html>
-  <!-- below the fold includes -->
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Raleway:300,500,700' />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/css/featherlight.css" />
-  <link rel="stylesheet" href="/css/featherlight.gallery.css" />
-  <link rel="stylesheet" href="/css/owl.carousel.css" />
-  <?php if (isset($page->injectCSS)) echo $page->injectCSS; ?>
-  <link rel="stylesheet" href="/css/style.css" />
-  <?php
-  $page->html = ob_get_clean();
-  ?>
+    </div>
+  </footer>
+  <script src="/js/vendor.min.js"></script>
+  <script src="/js/main.js"></script>
+  <?php if (isset($page->injectScripts)) echo $page->injectScripts; ?>
+</body>
+</html>
+<!-- below the fold includes -->
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Raleway:300,500,700' />
+<?php if (isset($page->injectCSS)) echo $page->injectCSS; ?>
+<link rel="stylesheet" href="/css/styles_<?php if ($clientTouch) echo "touch"; else echo "pointer"; ?>.css" />
+<?php
+$page->html = ob_get_clean();
+?>

@@ -109,7 +109,7 @@ class Page {
     // inline gif as standard src
     $src = $this->TINY_GIF;
     // fallback image as lazyload data-src
-    $data_src = $path; 
+    $data_src = $path;
     // data srcset with all files:
 
     if (count($fileSizes) == 0) 

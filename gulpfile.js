@@ -2,6 +2,7 @@
 
 var gulp = require('gulp'),
 changed = require('gulp-changed'),
+concat = require('gulp-concat'),
 rename = require('gulp-rename'),
 shell = require('gulp-shell'),
 minify = require('gulp-minify-css'),
@@ -11,37 +12,65 @@ sass = require('gulp-sass'),
 sftp = require('gulp-sftp'),
 del = require('del');
 
-// process css ans sass files
+var sourcemaps = require('gulp-sourcemaps');
+
+// process css and sass files
 gulp.task('css', ['clean-div'], function () {
   return gulp.src([
-    './src/**/*.css',
-    './src/**/*.scss'
+    './src/css/embed.scss',
+    './src/css/styles_pointer.scss',
+    './src/css/styles_touch.scss'
     ], { dot: true })
-  .pipe(changed('./web/', {
-    extension: '.css'
-  }))
-  .pipe(sass().on('error', sass.logError))
-  .pipe(minify())
-  .pipe(gulp.dest('./web/'))
-  .pipe(gulp.dest('./web-div/'));
+  //.pipe(changed('./web/css/', { // always build css
+  //  extension: '.css'
+  //}))
+.pipe(sass().on('error', sass.logError))
+.pipe(minify())
+.pipe(gulp.dest('./web/css/'))
+.pipe(gulp.dest('./web-div/css/'));
+});
+
+gulp.task('js:vendor', function(callback) {
+  return gulp.src([
+    './src/js/vendor/jquery.js',
+    './src/js/vendor/jquery.validate.js',
+    './src/js/vendor/jquery.detect_swipe.js',
+    './src/js/vendor/jquery.easing.js',
+    './src/js/vendor/bootstrap.js',
+    './src/js/vendor/owl.carousel.js',
+    './src/js/vendor/parallax.js',
+    './src/js/vendor/featherlight.js',
+    './src/js/vendor/featherlight.gallery.js',
+    ])
+    // getBundleName creates a cache busting name
+    .pipe(concat('vendor.js'))
+    .pipe(gulp.dest('./web/js/'))
+    .pipe(gulp.dest('./web-div/js/'))
+    .pipe(uglify())
+    .pipe(rename({
+      extname: ".min.js"
+    }))
+    .pipe(gulp.dest('./web/js/'))
+    .pipe(gulp.dest('./web-div/js/'));
 });
 
 // process js files copy original js files, then minify them and put them as well in the './web/' directory
 gulp.task('js', ['clean-div'], function () {
   return gulp.src([
-    './src/**/*.js'
+    './src/js/lazysizes.js',
+    './src/js/main.js'
     ], { 
       dot: true 
     })
-  .pipe(changed('./web/'))
-  .pipe(gulp.dest('./web/'))
-  .pipe(gulp.dest('./web-div/'))
+  .pipe(changed('./web/js/'))
+  .pipe(gulp.dest('./web/js/'))
+  .pipe(gulp.dest('./web-div/js/'))
   .pipe(uglify())
   .pipe(rename({
     extname: ".min.js"
   }))
-  .pipe(gulp.dest('./web/'))
-  .pipe(gulp.dest('./web-div/'));
+  .pipe(gulp.dest('./web/js/'))
+  .pipe(gulp.dest('./web-div/js/'));
 });
 
 // copy other source files which don't need processing

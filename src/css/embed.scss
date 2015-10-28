@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+@import "variables";
+
+// prefent FOUC
+body{display:none; }

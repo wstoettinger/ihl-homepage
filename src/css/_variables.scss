@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+$gray-darker:               #212225 !default;
+$gray-dark:                 #37383b !default;
+$gray:                      #555558 !default;
+$gray-li:                   #696a6d !default;
+$gray-light:                #818286 !default;
+$gray-lighter:              #e9ebef !default;
+$gray-lightest:             #fbfcff !default;
+
+$color-primary:             #4086d3 !default;
+
+$text-color:                $gray-dark !default; 
+$text-color-headings:       $gray-li !default;
+
+$link-color:                 $color-primary !default;
+$link-hover-color:           darken($link-color, 15%) !default;
+$link-hover-decoration:      none !default;
+
+$box-shadow:                0 0 20px -1px $gray;
+$card-shadow:               0 3px 20px -3px $gray;
+$picturebox-shadow:         0 3px 10px -3px $gray;
+
+$nav-col:               #fff !default;
+$nav-bg:                $color-primary !default;
+$nav-border:            $color-primary !default;
+$nav-hover-bg:          darken($color-primary, 15%) !default;
+$nav-active-bg:         lighten($color-primary, 30%) !default;
+$nav-arrow:             rgba(255, 255, 255, .6);
+$nav-divider:           $gray-dark;
+
+$footer-col:            $gray-lighter !default;
+$footer-a:              #4086d3 !default; //#5591dc
+$footer-a-hover:        lighten($footer-a, 10%) !default;
+$footer-bg:             $gray !default;
+
+$footer-button-col:       $footer-col;
+$footer-button-bg:        darken($color-primary, 10%) !default;
+$footer-button-hover-bg:  darken($color-primary, 15%) !default;
+
+$font-weight:           300;
+$font-weight-a:         500;
+$font-weight-headings:  500;
+$font-weight-bold:      700;
+
+// natural nav breakpoint:
+$break-phone: 48rem;
+$break-nav: 48rem;
+
+$nav-height: 80px;
+$nav-height-phone: 60px;
+$nav-image-height-phone: 60px;

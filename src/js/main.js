@@ -2,7 +2,6 @@
 
 window.initialize = function () {
 
-  window.loadScript();
   window.initMenu();
   window.checkContactFormResize();
 
@@ -94,17 +93,6 @@ window.checkContactFormScroll = function() {
   }
 };
 
-window.loadScript = function () {
-  var sheet = document.createElement('link');
-  sheet.rel = 'stylesheet';
-
-  if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i))
-    sheet.href = '/css/client_touch.css';
-  else
-    sheet.href = '/css/client_pointer.css';
-
-  document.body.appendChild(sheet);
-};
 
 window.initMenu = function () {
   $('.menu-toggle').click($('.menu'), function (e) {
